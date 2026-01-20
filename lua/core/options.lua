@@ -63,3 +63,11 @@ g.loaded_netrwPlugin = 1
 
 --- bufferline
 opt.termguicolors = true
+
+--- CursorHold delay, unit in milliseconds, default 4000ms
+opt.updatetime = 750
+
+--- Line Break
+opt.wrap = true
+opt.linebreak = true
+opt.breakindent = true

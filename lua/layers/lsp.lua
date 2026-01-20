@@ -5,9 +5,6 @@ vim.lsp.enable(loong.lsp_enabled)
 -- commands
 vim.api.nvim_create_user_command("LspInfo", ":checkhealth lsp", { desc = "Check Lsp Health" })
 
--- CursorHold delay, 300ms, default is 4000ms
-vim.opt.updatetime = 300
-
 -- diagnostics
 vim.diagnostic.config({
   -- virtual_text = true,
@@ -16,6 +13,8 @@ vim.diagnostic.config({
   update_in_insert = true,
   severity_sort = true,
   float = {
+    max_width = 80,
+    warp = true,
     severity_sort = true,
     source = true,
     border = "rounded",

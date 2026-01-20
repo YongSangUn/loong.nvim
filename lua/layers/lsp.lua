@@ -5,8 +5,8 @@ vim.lsp.enable(loong.lsp_enabled)
 -- commands
 vim.api.nvim_create_user_command("LspInfo", ":checkhealth lsp", { desc = "Check Lsp Health" })
 
--- hover
--- vim.o.winborder = "rounded"
+-- CursorHold delay, 300ms, default is 4000ms
+vim.opt.updatetime = 300
 
 -- diagnostics
 vim.diagnostic.config({
@@ -17,6 +17,8 @@ vim.diagnostic.config({
   severity_sort = true,
   float = {
     severity_sort = true,
+    source = true,
+    border = "rounded",
   },
   signs = {
     text = {

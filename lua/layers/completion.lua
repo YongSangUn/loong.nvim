@@ -127,12 +127,22 @@ loong.add_plugin("yetone/avante.nvim", {
       exclude_auto_select = { "NvimTree" },
       provider = "snacks",
     },
-    provider = "moonshot",
+    -- provider = "moonshot",
+    provider = "zai",
     behaviour = {
       -- enable_fastapply = true,
       -- auto_suggestions = true,
       auto_approve_tool_permissions = true,
       -- Example: auto_approve_tool_permissions = {"bash", "str_replace", "grep"}, -- Auto-approve specific tools only
+    },
+    acp_providers = {
+      ["gemini-cli"] = {
+        command = "gemini",
+        args = { "--experimental-acp" },
+        env = {
+          NODE_NO_WARNINGS = 1,
+        },
+      },
     },
     providers = {
       openai = {
@@ -144,6 +154,12 @@ loong.add_plugin("yetone/avante.nvim", {
           max_completion_tokens = 8192, -- Increase this to include reasoning tokens (for reasoning models)
           --reasoning_effort = "medium", -- low|medium|high, only used for reasoning models
         },
+      },
+      zai = {
+        __inherited_from = "openai",
+        api_key_name = "Z_AI_API_KEY",
+        endpoint = "https://api.z.ai/api/coding/paas/v4",
+        model = "glm-4.7",
       },
       moonshot = {
         use_ReAct_prompt = true,
@@ -159,13 +175,13 @@ loong.add_plugin("yetone/avante.nvim", {
         --   max_tokens = 262144,
         -- },
       },
-      g25_pro = {
+      g_pro = {
         __inherited_from = "gemini",
-        model = "gemini-2.5-pro",
+        model = "gemini-3-pro-preview",
       },
-      g25_flash = {
+      g_flash = {
         __inherited_from = "gemini",
-        model = "gemini-2.5-flash",
+        model = "gemini-3-flash-preview",
       },
       ds_reasoner = {
         __inherited_from = "openai",

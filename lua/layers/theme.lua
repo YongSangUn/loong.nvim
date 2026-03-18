@@ -11,5 +11,6 @@ loong.add_plugin("tanvirtin/monokai.nvim", {
         ["@comment"] = { fg = "#5C8C4A", italic = true },
       },
     })
+    vim.api.nvim_set_hl(0, "FoldColumn", { link = "Normal" })
   end,
 })

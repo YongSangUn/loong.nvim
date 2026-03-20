@@ -411,25 +411,44 @@ loong.add_plugin("folke/trouble.nvim", {
   },
 })
 
--- auto folding
+-- auto folding and statuscol.
 -- https://github.com/kevinhwang91/nvim-ufo
 loong.add_plugin("kevinhwang91/nvim-ufo", {
   event = "BufReadPost",
   dependencies = {
     "kevinhwang91/promise-async",
     "nvim-treesitter/nvim-treesitter",
+    -- clear the ugly numbers, foldinner nvim version 0.11.5 is not supported.
+    -- also adjust the layout of the foldcolumn and number.
+    --   ref: https://github.com/kevinhwang91/nvim-ufo/issues/4#top
+    {
+      "luukvbaal/statuscol.nvim",
+      config = function()
+        local builtin = require("statuscol.builtin")
+        require("statuscol").setup({
+          relculright = true,
+          segments = {
+            { text = { builtin.lnumfunc, " " }, click = "v:lua.ScLa" },
+            { text = { builtin.foldfunc }, click = "v:lua.ScFa" },
+            { text = { " %s" }, click = "v:lua.ScSa" },
+          },
+        })
+      end,
+    },
   },
   init = function()
+    -- vim.o.foldcolumn = "1"
     vim.o.foldcolumn = "1"
     vim.o.foldlevel = 99
     vim.o.foldlevelstart = 99
     vim.o.foldenable = true
-    vim.o.fillchars = "eob: ,fold: ,foldopen:v,foldsep: ,foldclose:>"
+    vim.o.fillchars = "eob: ,fold: ,foldopen:,foldsep: ,foldclose:"
   end,
   opts = {
     provider_selector = function()
       return { "treesitter", "indent" }
     end,
+    -- show the number of folded lines
     fold_virt_text_handler = function(virtText, lnum, endLnum, width, truncate)
       local newVirtText = {}
       local suffix = (" ... 󰁂 %d lines"):format(endLnum - lnum)
